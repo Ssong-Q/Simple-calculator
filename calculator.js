@@ -10,17 +10,17 @@ const onClickNumber = (event) => {
     return;
   }
   //이 아래로는 operator에 데이터가 있을 경우에만 실행됨
-  if (numOne && $operator.value === "-") {
-    numOne = event.target.textContent * -1;
-    $result.value = event.target.textContent * -1;
-  } else if (!numTwo) {
+  if (!numTwo) {
     $result.value = "";
+    numTwo += event.target.textContent;
+    $result.value += event.target.textContent;
+  } else {
     numTwo += event.target.textContent;
     $result.value += event.target.textContent;
   }
   console.log(numOne, numTwo, operator);
 };
-
+  
 document.querySelector("#num-0").addEventListener("click", onClickNumber);
 document.querySelector("#num-1").addEventListener("click", onClickNumber);
 document.querySelector("#num-2").addEventListener("click", onClickNumber);
@@ -56,9 +56,9 @@ const onClickOperator = (event) => {
   if (numOne) {
     operator = event.target.textContent;
     $operator.value = event.target.textContent;
-  } else if (numOne === "" && event.target.textContent === "-") {
-    operator = event.target.textContent;
-    $operator.value = event.target.textContent;
+  } else if (!numOne && event.target.textContent === "-") {
+    numOne = event.target.textContent;
+    $result.value = event.target.textContent;
   } else {
     alert("숫자를 먼저 입력하세요!");
   }
